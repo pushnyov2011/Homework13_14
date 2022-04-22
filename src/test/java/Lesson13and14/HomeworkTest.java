@@ -1,23 +1,30 @@
 package Lesson13and14;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.Command;
+import org.openqa.selenium.devtools.Event;
+import org.openqa.selenium.devtools.idealized.log.Log;
+import org.openqa.selenium.devtools.idealized.log.model.LogEntry;
+import org.openqa.selenium.internal.Debug;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.junit.*;
+//import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HomeworkTest {
    static WebDriver driver;
@@ -27,7 +34,7 @@ public class HomeworkTest {
     static JavascriptExecutor js;
 
 
-    @BeforeClass
+    @BeforeAll
     public static void setup()
     {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
@@ -52,13 +59,13 @@ public class HomeworkTest {
     {
 
        js.executeScript("window.scrollTo(0, -document.body.scrollHeight)");
-        Assert.assertEquals("+375 17 388 40 22" , mainPage_andersan.get_a_phohe_number());
+        Assertions.assertEquals("+375 17 388 40 22" , mainPage_andersan.get_a_phohe_number());
     }
     @Test
     public void check_skype_button_name()
     {
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-        Assert.assertEquals("skype",mainPage_andersan.get_skype_button_text());
+        Assertions.assertEquals("skype",mainPage_andersan.get_skype_button_text());
     }
 
     @Test
@@ -73,15 +80,16 @@ public class HomeworkTest {
         //System.out.println(driver.getCurrentUrl());
         //driver.findElement(By.linkText("skype")).click();
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.urlContains("https://join.skype.com/aM8R4P4dNJdy"));
-        Assert.assertEquals("https://join.skype.com/aM8R4P4dNJdy" ,driver.getCurrentUrl() );
+        Assertions.assertEquals("https://join.skype.com/aM8R4P4dNJdy" ,driver.getCurrentUrl() );
         driver.close();
         driver.switchTo().window(windowHandles.get(0));
 
 
 
+
     }
 
-    @AfterClass
+    @AfterAll
     public static void Close_all()
     {driver.quit();}
 
